@@ -60,32 +60,38 @@ fun Home(navController: NavController) {
         isFloatingActionButtonDocked = true,
         floatingActionButtonPosition = FabPosition.Center,
         bottomBar = { BottomBarSection(navController, RoundedCornerShape(50)) },
-    ) {
-        Column(
-            modifier = Modifier
-                .background(color = MainGreen)
-                .wrapContentSize()
-                .verticalScroll(state = rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier.padding(
+                PaddingValues(0.dp, 0.dp, 0.dp, innerPadding.calculateBottomPadding())
+            )
         ) {
-            HeaderSection()
-            SearchSection()
-            Box( //(TODO(Align this box with Bottom Bar))
-                contentAlignment = Alignment.Center, modifier = Modifier
-                    .padding(top = 16.dp)
+            Column(
+                modifier = Modifier
+                    .background(color = MainGreen)
                     .wrapContentSize()
-                    .clip(
-                        RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
-                    )
-                    .background(Color(0xFFf4f0ec))
+                    .verticalScroll(state = rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Column(
-                    modifier = Modifier.wrapContentSize(),
-                    verticalArrangement = Arrangement.SpaceBetween
+                HeaderSection()
+                SearchSection()
+                Box(
+                    contentAlignment = Alignment.Center, modifier = Modifier
+                        .padding(top = 16.dp)
+                        .wrapContentSize()
+                        .clip(
+                            RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+                        )
+                        .background(Color(0xFFf4f0ec))
                 ) {
-                    CategoriesSection()
-                    AdvertSection()
-                    PopularDealsSection()
+                    Column(
+                        modifier = Modifier.wrapContentSize(),
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        CategoriesSection()
+                        AdvertSection()
+                        PopularDealsSection()
+                    }
                 }
             }
         }
@@ -102,7 +108,8 @@ fun BottomBarSection(navController: NavController, fabShape: RoundedCornerShape)
         modifier = Modifier
             .clip(
                 shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-            ),
+            )
+            .background(Color(0xFFf4f0ec)),
         backgroundColor = MainGreen
     ) {
         IconButton(
@@ -252,9 +259,11 @@ fun AdvertSection() {
             "Order Now", Color(0xFFffb6c1)
         )
     )
-    LazyRow(content = {
-        items(advertList) { advert -> ShoppingAdvertItem(advert) }
-    },)
+    LazyRow(
+        content = {
+            items(advertList) { advert -> ShoppingAdvertItem(advert) }
+        },
+    )
 }
 
 @Composable
@@ -361,7 +370,7 @@ fun HeaderSection() {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .padding(start = 24.dp, end = 24.dp, top = 16.dp)
-            .fillMaxWidth(),
+            .wrapContentSize(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
@@ -375,7 +384,6 @@ fun HeaderSection() {
         Box(
             contentAlignment = Alignment.Center, modifier = Modifier
                 .padding(start = 22.dp)
-                .wrapContentWidth()
                 .size(40.dp)
                 .clip(CircleShape)
                 .background(Color.White)
