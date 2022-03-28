@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.noobject01.groceryshoppingapp.ui.screens.CategoriesScreen
 import com.noobject01.groceryshoppingapp.ui.screens.Home
 
 
@@ -50,7 +51,7 @@ fun Navigator() {
                 ) + fadeOut(animationSpec = tween(300))
             }
         ) {
-            //Room()
+            CategoriesScreen(navController)
         }
 
         // Categories Type Screen

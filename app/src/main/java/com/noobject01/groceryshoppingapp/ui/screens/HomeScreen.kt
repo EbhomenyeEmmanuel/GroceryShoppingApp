@@ -4,13 +4,12 @@ import androidx.annotation.DrawableRes
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.noobject01.groceryshoppingapp.R
+import com.noobject01.groceryshoppingapp.navigation.Screen
 import com.noobject01.groceryshoppingapp.ui.theme.GroceryShoppingAppTheme
 import com.noobject01.groceryshoppingapp.ui.theme.MainGreen
 
@@ -69,8 +69,7 @@ fun Home(navController: NavController) {
             Column(
                 modifier = Modifier
                     .background(color = MainGreen)
-                    .wrapContentSize()
-                    .verticalScroll(state = rememberScrollState()),
+                    .wrapContentSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 HeaderSection()
@@ -88,7 +87,7 @@ fun Home(navController: NavController) {
                         modifier = Modifier.wrapContentSize(),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
-                        CategoriesSection()
+                        CategoriesSection(navController)
                         AdvertSection()
                         PopularDealsSection()
                     }
@@ -379,6 +378,7 @@ fun HeaderSection() {
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Start,
             color = Color.White,
+            modifier = Modifier.wrapContentSize()
         )
 
         Box(
@@ -387,6 +387,7 @@ fun HeaderSection() {
                 .size(40.dp)
                 .clip(CircleShape)
                 .background(Color.White)
+                .wrapContentSize()
         ) {
 //            Image(
 //                painter = painterResource(id = R.drawable.user),
@@ -401,7 +402,7 @@ fun HeaderSection() {
 }
 
 @Composable
-fun CategoriesSection() {
+fun CategoriesSection(navController: NavController) {
     val rowList = listOf(
         ShoppingCategory(R.drawable.broccoli, "Vegetables"),
         ShoppingCategory(R.drawable.avocado, "Fruits"),
@@ -447,6 +448,9 @@ fun CategoriesSection() {
                     style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Start,
                     color = MainGreen,
+                    modifier = Modifier.clickable {
+                        navController.navigate(Screen.CategoriesScreen.route)
+                    }
                 )
             }
 
