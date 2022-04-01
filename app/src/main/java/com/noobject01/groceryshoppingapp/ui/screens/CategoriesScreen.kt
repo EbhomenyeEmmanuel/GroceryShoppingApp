@@ -2,6 +2,9 @@ package com.noobject01.groceryshoppingapp.ui.screens
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -21,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.noobject01.groceryshoppingapp.R
 import com.noobject01.groceryshoppingapp.ui.theme.MainGreen
 
 @Composable
@@ -45,15 +49,41 @@ fun CategoriesScreen(navController: NavController) {
             ) {
                 Box(
                     modifier = Modifier
-                        .padding( top = 16.dp)
+                        .padding(top = 16.dp)
                         .fillMaxSize()
-                        .clip(
-                            RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
-                        )
+                        .clip(RoundedCornerShape(24.dp))
                         .background(Color.White)
                 ) {
+
+                    val gridList = listOf(
+                        ShoppingCategory(R.drawable.broccoli, "Vegetables"),
+                        ShoppingCategory(R.drawable.avocado, "Fruits"),
+                        ShoppingCategory(R.drawable.beef, "Meat"),
+                        ShoppingCategory(R.drawable.bread, "Bread"),
+                        ShoppingCategory(R.drawable.cheese, "Fish"),
+                        ShoppingCategory(R.drawable.drink, "Beer"),
+                        ShoppingCategory(R.drawable.cheese, "Cheese"),
+                        ShoppingCategory(R.drawable.ice_cream, "IceCream"),
+                        ShoppingCategory(R.drawable.milk_egg, "Milk & Egg"),
+                        ShoppingCategory(R.drawable.octopus, "Sea Food"),
+                        ShoppingCategory(R.drawable.soda, "Drinks")
+                    )
+                    GridSection(gridList)
                 }
             }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun GridSection(categoryItems: List<ShoppingCategory>) {
+    LazyVerticalGrid(
+        cells = GridCells.Fixed(count = 3),
+        contentPadding = PaddingValues(8.dp, 8.dp)
+    ) {
+        items(categoryItems) { categoryItem ->
+            CategoryItem(item = categoryItem)
         }
     }
 }
