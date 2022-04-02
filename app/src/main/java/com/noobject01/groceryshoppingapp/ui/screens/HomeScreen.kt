@@ -1,6 +1,5 @@
 package com.noobject01.groceryshoppingapp.ui.screens
 
-import androidx.annotation.DrawableRes
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,6 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.noobject01.groceryshoppingapp.R
+import com.noobject01.groceryshoppingapp.models.ShoppingAdvert
+import com.noobject01.groceryshoppingapp.models.ShoppingCategory
+import com.noobject01.groceryshoppingapp.models.ShoppingPopularDealsCategory
 import com.noobject01.groceryshoppingapp.navigation.Screen
 import com.noobject01.groceryshoppingapp.ui.theme.GroceryShoppingAppTheme
 import com.noobject01.groceryshoppingapp.ui.theme.MainGreen
@@ -516,16 +518,3 @@ fun HomePreview() {
         Home(rememberAnimatedNavController())
     }
 }
-
-data class ShoppingCategory(@DrawableRes val categoryIcon: Int, val categoryName: String)
-data class ShoppingAdvert(
-    @DrawableRes val advertIcon: Int,
-    val advertTitle: String,
-    val advertSubtitle: String,
-    val advertMessage: String, val advertBackgroundColor: Color
-)
-
-data class ShoppingPopularDealsCategory(
-    @DrawableRes val categoryIcon: Int,
-    val categoryName: String
-)
