@@ -69,8 +69,9 @@ fun Home(navController: NavController) {
             Column(
                 modifier = Modifier
                     .background(color = MainGreen)
-                    .wrapContentSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                    .wrapContentSize()
+                    .padding(top = 16.dp),
+                horizontalAlignment = Alignment.Start,
             ) {
                 HeaderSection()
                 SearchSection()
@@ -366,24 +367,26 @@ fun SearchSection() {
 @Composable
 fun HeaderSection() {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Bottom,
         modifier = Modifier
-            .padding(start = 24.dp, end = 24.dp, top = 16.dp)
-            .wrapContentSize(),
+            .fillMaxWidth()
+            .padding(top = 8.dp, end = 24.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
         Text(
-            text = "Hey,\nLets search your grocery food.",
+            text = "Hey, Lets search your grocery food.",
             style = MaterialTheme.typography.h6,
-            textAlign = TextAlign.Start,
             color = Color.White,
-            modifier = Modifier.wrapContentSize()
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(start = 22.dp)
         )
 
         Box(
-            contentAlignment = Alignment.Center, modifier = Modifier
-                .padding(start = 22.dp)
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .padding(start = 10.dp)
                 .size(40.dp)
                 .clip(CircleShape)
                 .background(Color.White)
@@ -458,7 +461,12 @@ fun CategoriesSection(navController: NavController) {
 
             LazyRow(content = {
                 items(rowList) { item ->
-                    CategoryItem(item)
+                    CategoryItem(
+                        item, Modifier
+                            .padding(start = 10.dp, end = 10.dp)
+                            .height(90.dp)
+                            .width(100.dp)
+                    )
                 }
             })
 
@@ -468,17 +476,14 @@ fun CategoriesSection(navController: NavController) {
 }
 
 @Composable
-fun CategoryItem(item: ShoppingCategory) {
+fun CategoryItem(item: ShoppingCategory, modifier: Modifier) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .height(90.dp)
-                .width(100.dp)
+            modifier = modifier
                 .clip(
                     RoundedCornerShape(24f)
                 )
