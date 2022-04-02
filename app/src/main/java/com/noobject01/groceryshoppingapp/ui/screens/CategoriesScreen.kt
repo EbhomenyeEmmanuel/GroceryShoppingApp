@@ -1,5 +1,6 @@
 package com.noobject01.groceryshoppingapp.ui.screens
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
@@ -21,10 +22,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.noobject01.groceryshoppingapp.R
+import com.noobject01.groceryshoppingapp.ui.theme.GroceryShoppingAppTheme
 import com.noobject01.groceryshoppingapp.ui.theme.MainGreen
 
 @Composable
@@ -35,8 +39,7 @@ fun CategoriesScreen(navController: NavController) {
         Box(
             modifier = Modifier
                 .background(color = MainGreen)
-                .wrapContentSize()
-                .verticalScroll(state = rememberScrollState()),
+                .wrapContentSize(),
         ) {
             Box(
                 contentAlignment = Alignment.Center, modifier = Modifier
@@ -49,13 +52,24 @@ fun CategoriesScreen(navController: NavController) {
             ) {
                 Box(
                     modifier = Modifier
-                        .padding(top = 16.dp)
+                        .padding(16.dp)
                         .fillMaxSize()
                         .clip(RoundedCornerShape(24.dp))
                         .background(Color.White)
                 ) {
 
                     val gridList = listOf(
+                        ShoppingCategory(R.drawable.broccoli, "Vegetables"),
+                        ShoppingCategory(R.drawable.avocado, "Fruits"),
+                        ShoppingCategory(R.drawable.beef, "Meat"),
+                        ShoppingCategory(R.drawable.bread, "Bread"),
+                        ShoppingCategory(R.drawable.cheese, "Fish"),
+                        ShoppingCategory(R.drawable.drink, "Beer"),
+                        ShoppingCategory(R.drawable.cheese, "Cheese"),
+                        ShoppingCategory(R.drawable.ice_cream, "IceCream"),
+                        ShoppingCategory(R.drawable.milk_egg, "Milk & Egg"),
+                        ShoppingCategory(R.drawable.octopus, "Sea Food"),
+                        ShoppingCategory(R.drawable.soda, "Drinks"),
                         ShoppingCategory(R.drawable.broccoli, "Vegetables"),
                         ShoppingCategory(R.drawable.avocado, "Fruits"),
                         ShoppingCategory(R.drawable.beef, "Meat"),
@@ -80,10 +94,15 @@ fun CategoriesScreen(navController: NavController) {
 fun GridSection(categoryItems: List<ShoppingCategory>) {
     LazyVerticalGrid(
         cells = GridCells.Fixed(count = 3),
-        contentPadding = PaddingValues(8.dp, 8.dp)
+        contentPadding = PaddingValues(10.dp, 10.dp),
     ) {
         items(categoryItems) { categoryItem ->
-            CategoryItem(item = categoryItem)
+            CategoryItem(
+                item = categoryItem, Modifier
+                    .padding(start = 10.dp, top = 16.dp, end = 10.dp)
+                    .wrapContentSize()
+                    .fillMaxSize()
+            )
         }
     }
 }
@@ -123,5 +142,14 @@ fun TopBarSection(
                 .fillMaxWidth()
                 .padding(16.dp)
         )
+    }
+}
+
+@ExperimentalAnimationApi
+@Preview(showBackground = true, heightDp = 640, name = "Light Preview")
+@Composable
+fun CategoriesScreenPreview() {
+    GroceryShoppingAppTheme {
+        CategoriesScreen(rememberAnimatedNavController())
     }
 }
